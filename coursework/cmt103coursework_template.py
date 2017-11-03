@@ -89,10 +89,12 @@ def get_words(file_name):
         words=book.replace("\n"," ").replace("\r"," ")
         punc=string.punctuation
         for i in list(punc):
-            words=words.replace(i," ")
+            words=words.replace(i," ")    
         words=words.split(" ")
-        while(''in words):
-            words.remove('')
+        words.remove('')
+        words.remove('')
+        words.remove('')
+        
         print(words[:100])
         return(words)
 
@@ -102,9 +104,14 @@ def get_dic(words):
     Input: a list of words
     Return: a dic of ly-words and its number of occurrences
     '''
-    adic=[]
-    for i in words:
-        if i not in adic:
+    adic={}    
+    for i in words: 
+        if i not in adic and i[-2:]=="ly":
+            adic[i]=0
+        elif i in adic and i[-2:]=="ly":
+            adic[i]+=1
+    return adic
+            
     
 def get_top_10(dic): 
     '''
