@@ -91,7 +91,11 @@ def get_words(file_name):
         for i in list(punc):
             words=words.replace(i," ")    
         words=words.split(" ")
-        while('' in words):
+        j=0
+        for i in words:
+            if i=='':
+                j+=1
+        for k in range(j):
             words.remove('')
         return(words)
 
