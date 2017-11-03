@@ -91,11 +91,8 @@ def get_words(file_name):
         for i in list(punc):
             words=words.replace(i," ")    
         words=words.split(" ")
-        words.remove('')
-        words.remove('')
-        words.remove('')
-        
-        print(words[:100])
+        while('' in words):
+            words.remove('')
         return(words)
 
 
@@ -118,7 +115,17 @@ def get_top_10(dic):
     Input: a dic of ly-words and its number of occurrences
     Return: a sorted list of top 10 two-element tuples.
     '''
-    pass
+    vlst=[]
+    al=[]
+    for key,value in dic.items():
+        vlst+=value
+    sorv=vlst.sort(reverse=true)
+    for i in range(10):
+        a,b=dic(sorv(i)),sorv(i)   
+        c=tuple(a,b)
+        al+=c
+    return al
+            
 
 
 
