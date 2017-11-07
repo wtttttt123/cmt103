@@ -88,16 +88,26 @@ def get_words(file_name):
         book=f.read()
         words=book.replace("\n"," ").replace("\r"," ")
         punc=string.punctuation
-        for i in list(punc):
-            words=words.replace(i," ")    
-        words=words.split(" ")
+        story=""
+        for i in range(len(words)):            
+            if words[i] in punc:
+                if words[i] =="'" and(words[i+1]).lower()in("abcdefghijklmnopqrstuvwxyz")and(words[i-1]).lower()in("abcdefghijklmnopqrstuvwxyz"):
+                    story+=words[i]
+                else:
+                    story+=" "
+            else:
+                story+=words[i]
+        story=story.split(" ")
+        #for a in story:
+#            if "-"in a:
+#                print(a)
         j=0
-        for i in words:
+        for i in story:
             if i=='':
                 j+=1
         for k in range(j):
-            words.remove('')
-        return(words)
+            story.remove('')
+        return(story)
 
 
 def get_dic(words): 
@@ -106,11 +116,13 @@ def get_dic(words):
     Return: a dic of ly-words and its number of occurrences
     '''
     adic={}    
-    for i in words: 
-        if i not in adic and i[-2:]=="ly":
-            adic[i]=0
-        elif i in adic and i[-2:]=="ly":
-            adic[i]+=1
+    for i in words:
+        i=i.lower()
+        if i[-2:]=="ly":
+            if i in adic.keys():
+                adic[i]+=1
+            elif i not in adic.keys():
+                adic[i]=1           
     return adic
             
     
@@ -121,13 +133,16 @@ def get_top_10(dic):
     '''
     vlst=[]
     al=[]
-    for key,value in dic.items():
-        vlst+=value
-    sorv=vlst.sort(reverse=true)
+    sorv=list(dic.values())
+    sorv=sorted(sorv,reverse=True)
+    print(sorv)
+    
     for i in range(10):
-        a,b=dic(sorv(i)),sorv(i)   
-        c=tuple(a,b)
-        al+=c
+        for key in dic:
+            if dic[key] == (sorv)[i]:
+                c=tuple([key,dic[key]])
+                al.append(c)
+
     return al
             
 
