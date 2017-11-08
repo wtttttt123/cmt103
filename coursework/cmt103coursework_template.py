@@ -91,12 +91,12 @@ def get_words(file_name):
         story=""
         for i in range(len(words)):            
             if words[i] in punc:
-                if words[i] =="'" and(words[i+1]).lower()in("abcdefghijklmnopqrstuvwxyz")and(words[i-1]).lower()in("abcdefghijklmnopqrstuvwxyz"):
+                if (words[i+1]).lower()in("abcdefghijklmnopqrstuvwxyz")and(words[i-1]).lower()in("abcdefghijklmnopqrstuvwxyz"):
                     story+=words[i]
                 else:
                     story+=" "
             else:
-                story+=words[i]
+                story+=(words[i]).lower()
         story=story.split(" ")
         #for a in story:
 #            if "-"in a:
@@ -107,6 +107,7 @@ def get_words(file_name):
                 j+=1
         for k in range(j):
             story.remove('')
+        print(story)
         return(story)
 
 
@@ -117,11 +118,10 @@ def get_dic(words):
     '''
     adic={}    
     for i in words:
-        i=i.lower()
         if i[-2:]=="ly":
             if i in adic.keys():
                 adic[i]+=1
-            elif i not in adic.keys():
+            else:
                 adic[i]=1           
     return adic
             
@@ -131,19 +131,27 @@ def get_top_10(dic):
     Input: a dic of ly-words and its number of occurrences
     Return: a sorted list of top 10 two-element tuples.
     '''
-    vlst=[]
-    al=[]
-    sorv=list(dic.values())
-    sorv=sorted(sorv,reverse=True)
-    print(sorv)
+    # vlst=[]
+    # al=[]
+    # sorv=list(dic.values())
+    # sorv=sorted(sorv,reverse=True)
+    # print(sorv)
     
-    for i in range(10):
-        for key in dic:
-            if dic[key] == (sorv)[i]:
-                c=tuple([key,dic[key]])
-                al.append(c)
+    # for i in range(10):
+    #     for key in dic:
+    #         if dic[key] == (sorv)[i]:
+    #             c=tuple([key,dic[key]])
+    #             al.append(c)
 
+    # return al
+    al=[]
+    alist=list(dic.items())
+    alist=sorted(alist, key=lambda x: x[1],reverse=True)
+    for i in range(10):
+        c=tuple(alist[i])
+        al.append(c)
     return al
+
             
 
 
