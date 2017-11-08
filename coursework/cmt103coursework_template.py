@@ -91,23 +91,26 @@ def get_words(file_name):
         story=""
         for i in range(len(words)):            
             if words[i] in punc:
-                if (words[i+1]).lower()in("abcdefghijklmnopqrstuvwxyz")and(words[i-1]).lower()in("abcdefghijklmnopqrstuvwxyz"):
+                if (words[i+1]).lower()in("abcdefghijklmnopqrstuvwxyz") and (words[i-1]).lower()in("abcdefghijklmnopqrstuvwxyz"):
                     story+=words[i]
                 else:
                     story+=" "
+            elif words[i]in"0123456789":
+                story+=" "
             else:
                 story+=(words[i]).lower()
         story=story.split(" ")
         #for a in story:
 #            if "-"in a:
 #                print(a)
+        
+
         j=0
         for i in story:
             if i=='':
                 j+=1
-        for k in range(j):
+        for i in range(j):
             story.remove('')
-        print(story)
         return(story)
 
 
