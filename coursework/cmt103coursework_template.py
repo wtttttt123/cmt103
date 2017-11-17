@@ -30,7 +30,7 @@ def readnumbers(file_name):
         number = numbers.strip("\n").split(", ")
         for i in range(len(number)):
            number[i]=int(number[i])
-        return(numbe)
+        return(number)
 
         
 
@@ -40,6 +40,8 @@ def isPrime(num):
     Input: an integer
     Return: a boolean 
     '''
+    if num==2:
+        return True
     for i in range(2,num):
         if num%i==0:
             return False    
@@ -89,28 +91,25 @@ def get_words(file_name):
         words=book.replace("\n"," ").replace("\r"," ")
         punc=string.punctuation
         story=""
-        for i in range(len(words)):            
-            if words[i] in punc:
+        for i in range(len(words)): #loop all in words           
+            if words[i] in punc:    # the punctuation should be kept when the punctuation between two alphabetica characters like I'm or ill-judged    
                 if (words[i+1]).lower()in("abcdefghijklmnopqrstuvwxyz") and (words[i-1]).lower()in("abcdefghijklmnopqrstuvwxyz"):
                     story+=words[i]
+                #elif (words[i+1]).lower()in("abcdefghijklmnopqrstuvwxyz") and (words[i-1]).lower()in("0123456789"):
+#                    story+=words[i]
                 else:
-                    story+=" "
+                    story+=" " #other punctuation and number replaced by blank space
             elif words[i]in"0123456789":
                 story+=" "
             else:
                 story+=(words[i]).lower()
         story=story.split(" ")
-        #for a in story:
-#            if "-"in a:
-#                print(a)
-        
-
-        j=0
-        for i in story:
-            if i=='':
-                j+=1
-        for i in range(j):
-            story.remove('')
+        j=[]
+        for i in range(len(story)):
+            if story[i]=='':
+                j.insert(0,i)
+        for k in j:
+            del story[k]
         return(story)
 
 
@@ -134,19 +133,6 @@ def get_top_10(dic):
     Input: a dic of ly-words and its number of occurrences
     Return: a sorted list of top 10 two-element tuples.
     '''
-    # vlst=[]
-    # al=[]
-    # sorv=list(dic.values())
-    # sorv=sorted(sorv,reverse=True)
-    # print(sorv)
-    
-    # for i in range(10):
-    #     for key in dic:
-    #         if dic[key] == (sorv)[i]:
-    #             c=tuple([key,dic[key]])
-    #             al.append(c)
-
-    # return al
     al=[]
     alist=list(dic.items())
     alist=sorted(alist, key=lambda x: x[1],reverse=True)
